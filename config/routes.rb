@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'profiles/show'
+
   devise_for :users, :controllers => { registrations: 'registrations' }
   
   devise_scope :user do
@@ -7,9 +9,13 @@ Rails.application.routes.draw do
   end
 
   resources :statuses
+  get 'feed', to:'statuses#index', as: :feed
 
   #sets root file (index)
   root to: 'statuses#index'
+
+  get '/:id', to: 'profiles#show'
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
